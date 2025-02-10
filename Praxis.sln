@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35514.174 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduInst.PL", "EduInst.UI\EduInst.PL.csproj", "{61728B44-8068-4309-9EDC-375C0C248BBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduInst.BL", "EduInst.BL\EduInst.BL.csproj", "{86F198C3-4B35-4F58-B0EE-E933EECB4B0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduInst.DAL", "EduInst.DAL\EduInst.DAL.csproj", "{8E99A6AA-65E7-4554-A251-96F7B2257B11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61728B44-8068-4309-9EDC-375C0C248BBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61728B44-8068-4309-9EDC-375C0C248BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61728B44-8068-4309-9EDC-375C0C248BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61728B44-8068-4309-9EDC-375C0C248BBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F198C3-4B35-4F58-B0EE-E933EECB4B0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F198C3-4B35-4F58-B0EE-E933EECB4B0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F198C3-4B35-4F58-B0EE-E933EECB4B0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F198C3-4B35-4F58-B0EE-E933EECB4B0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E99A6AA-65E7-4554-A251-96F7B2257B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E99A6AA-65E7-4554-A251-96F7B2257B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E99A6AA-65E7-4554-A251-96F7B2257B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E99A6AA-65E7-4554-A251-96F7B2257B11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
