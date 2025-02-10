@@ -43,7 +43,7 @@ The application utilizes a Windows Forms interface to provide an intuitive and u
 
 ## 📜 License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License. See LICENSE for details.
 
 ---
 
