@@ -48,9 +48,9 @@
             lblEditClassChoose.Location = new Point(20, 55);
             lblEditClassChoose.Margin = new Padding(0);
             lblEditClassChoose.Name = "lblEditClassChoose";
-            lblEditClassChoose.Size = new Size(108, 16);
+            lblEditClassChoose.Size = new Size(124, 16);
             lblEditClassChoose.TabIndex = 30;
-            lblEditClassChoose.Text = "Choose Student*";
+            lblEditClassChoose.Text = "Choose Classroom*";
             // 
             // cmbEditClassChoose
             // 
@@ -109,9 +109,9 @@
             lblEditClass5.Location = new Point(20, 158);
             lblEditClass5.Margin = new Padding(0);
             lblEditClass5.Name = "lblEditClass5";
-            lblEditClass5.Size = new Size(76, 16);
+            lblEditClass5.Size = new Size(102, 16);
             lblEditClass5.TabIndex = 29;
-            lblEditClass5.Text = "Last Name*";
+            lblEditClass5.Text = "Class Capacity*";
             // 
             // lblEditClass4
             // 
@@ -121,9 +121,9 @@
             lblEditClass4.Location = new Point(20, 109);
             lblEditClass4.Margin = new Padding(0);
             lblEditClass4.Name = "lblEditClass4";
-            lblEditClass4.Size = new Size(77, 16);
+            lblEditClass4.Size = new Size(83, 16);
             lblEditClass4.TabIndex = 31;
-            lblEditClass4.Text = "First Name*";
+            lblEditClass4.Text = "Class Name*";
             // 
             // txtEditClassCapacity
             // 
@@ -131,7 +131,7 @@
             txtEditClassCapacity.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtEditClassCapacity.Location = new Point(12, 174);
             txtEditClassCapacity.Name = "txtEditClassCapacity";
-            txtEditClassCapacity.PlaceholderText = "e.g. Brown";
+            txtEditClassCapacity.PlaceholderText = "e.g. 50";
             txtEditClassCapacity.Size = new Size(730, 27);
             txtEditClassCapacity.TabIndex = 33;
             // 
@@ -141,7 +141,7 @@
             txtEditClassName.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtEditClassName.Location = new Point(12, 128);
             txtEditClassName.Name = "txtEditClassName";
-            txtEditClassName.PlaceholderText = "e.g. Thomas";
+            txtEditClassName.PlaceholderText = "e.g. P3";
             txtEditClassName.Size = new Size(730, 27);
             txtEditClassName.TabIndex = 34;
             // 

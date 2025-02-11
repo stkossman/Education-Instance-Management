@@ -50,6 +50,13 @@ namespace EduInst.PL
                 return;
             }
 
+            string newFirstName = txtEditStudentFirstName.Text.Trim();
+            string newLastName = txtEditStudentLastName.Text.Trim();
+            string newPhone = txtEditStudentPhone.Text.Trim();
+
+            bool isNameChanged = newFirstName != _selectedStudent.FirstName || newLastName != _selectedStudent.LastName;
+            bool isPhoneChanged = newPhone != _selectedStudent.Phone;
+
             _selectedStudent.FirstName = txtEditStudentFirstName.Text.Trim();
             _selectedStudent.LastName = txtEditStudentLastName.Text.Trim();
             _selectedStudent.Phone = txtEditStudentPhone.Text.Trim();
@@ -59,9 +66,40 @@ namespace EduInst.PL
             int selectedGroupId = (int)cmbEditStudentGroups.SelectedValue;
             _selectedStudent.Group = _context.Groups.FirstOrDefault(g => g.Id == selectedGroupId);
 
-            _context.SaveChanges();
+            var user = _context.Users.FirstOrDefault(u => u.Id == _selectedStudent.UserId);
+            if (user != null)
+            {
+                if (isNameChanged)
+                {
+                    user.Username = GenUsername(newFirstName, newLastName);
+                }
+                if (isPhoneChanged)
+                {
+                    user.Password = newPhone;
+                }
+            }
+
+             _context.SaveChanges();
             _studentsControl.displayData();
+            MessageBox.Show("Student edited successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private string GenUsername(string firstName, string lastName)
+        {
+            string username = $"{firstName.ToLower()}.{lastName.ToLower()}";
+
+            var existingUsernames = _context.Users.Select(u => u.Username).ToList();
+            int counter = 1;
+
+            while (existingUsernames.Contains(username))
+            {
+                username = $"{firstName.ToLower()}.{lastName.ToLower()}{counter}";
+                counter++;
+            }
+
+            return username;
+        }
+
 
         private void cmbEditStudentChoose_SelectedIndexChanged(object sender, EventArgs e)
         {

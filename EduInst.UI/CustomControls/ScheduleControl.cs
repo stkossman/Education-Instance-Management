@@ -49,32 +49,62 @@ namespace EduInst.PL.Schedule
             _scheduleRepository = new ScheduleRepository(_context);
 
             dtpScheduleDate.Format = DateTimePickerFormat.Short;
-            dtpScheduleDate.ValueChanged += (s, e) => LoadSchedule(dtpScheduleDate.Value);
+            dtpScheduleDate.ValueChanged += (s, e) => LoadSchedule();
+
+            LoadGroups();
+            LoadTeachers();
+            LoadSubjects();
+
+            cmbScheduleGroup.SelectedIndexChanged += (s, e) => LoadSchedule();
+            cmbScheduleTeacher.SelectedIndexChanged += (s, e) => LoadSchedule();
+            cmbScheduleSubject.SelectedIndexChanged += (s, e) => LoadSchedule();
         }
 
-        public void LoadSchedule(DateTime selectedDate)
+        public void LoadSchedule()
         {
             _context = new EduInstContext(new DbContextOptionsBuilder<EduInstContext>()
        .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EduInstDB;Trusted_Connection=True;TrustServerCertificate=True;")
        .Options);
 
-            var schedules = _context.Schedules
-           .Include(s => s.Teacher)
-           .Include(s => s.Subject)
-           .Include(s => s.Group)
-           .Include(s => s.Classroom)
-           .AsEnumerable()
-           .Where(s => s.StartTime.Date == selectedDate.Date)
-           .Select(s => new
-           {
-               Start = s.StartTime.ToShortTimeString(),
-               End = s.EndTime.ToShortTimeString(),
-               Teacher = s.Teacher.FirstName + " " + s.Teacher.LastName,
-               Subject = s.Subject.Name,
-               Group = s.Group.Name,
-               Classroom = s.Classroom.Name
-           })
-           .ToList();
+            DateTime selectedDate = dtpScheduleDate.Value;
+            int? selectedGroupId = cmbScheduleGroup.SelectedValue as int?;
+            int? selectedTeacherId = cmbScheduleTeacher.SelectedValue as int?;
+            int? selectedSubjectId = cmbScheduleSubject.SelectedValue as int?;
+
+            var query = _context.Schedules
+                .Include(s => s.Teacher)
+                .Include(s => s.Subject)
+                .Include(s => s.Group)
+                .Include(s => s.Classroom)
+                .Where(s => s.StartTime.Date == selectedDate.Date);
+
+            if (selectedGroupId.HasValue)
+            {
+                query = query.Where(s => s.GroupId == selectedGroupId.Value);
+            }
+
+            if (selectedTeacherId.HasValue)
+            {
+                query = query.Where(s => s.TeacherId == selectedTeacherId.Value);
+            }
+
+            if (selectedSubjectId.HasValue)
+            {
+                query = query.Where(s => s.SubjectId == selectedSubjectId.Value);
+            }
+
+            var schedules = query
+                .AsEnumerable()
+                .Select(s => new
+                {
+                    Start = s.StartTime.ToShortTimeString(),
+                    End = s.EndTime.ToShortTimeString(),
+                    Teacher = s.Teacher.FirstName + " " + s.Teacher.LastName,
+                    Subject = s.Subject.Name,
+                    Group = s.Group.Name,
+                    Classroom = s.Classroom.Name
+                })
+                .ToList();
 
             dgvSchedule.DataSource = schedules;
         }
@@ -82,6 +112,42 @@ namespace EduInst.PL.Schedule
         public DateTime GetSelectedData()
         {
             return dtpScheduleDate.Value;
+        }
+
+        public void LoadGroups()
+        {
+            cmbScheduleGroup.DataSource = _context.Groups
+                .OrderBy(g => g.Name)
+                .ToList();
+            cmbScheduleGroup.DisplayMember = "Name";
+            cmbScheduleGroup.ValueMember = "Id";
+            cmbScheduleGroup.SelectedIndex = -1;
+        }
+
+        public void LoadTeachers()
+        {
+            cmbScheduleTeacher.DataSource = _context.Teachers
+                .OrderBy(t => t.FirstName)
+                .ThenBy(t => t.LastName)
+                .Select(t => new
+                {
+                    t.Id,
+                    FullName = t.FirstName + " " + t.LastName
+                })
+                .ToList();
+            cmbScheduleTeacher.DisplayMember = "FullName";
+            cmbScheduleTeacher.ValueMember = "Id";
+            cmbScheduleTeacher.SelectedIndex = -1;
+        }
+
+        public void LoadSubjects()
+        {
+            cmbScheduleSubject.DataSource = _context.Subjects
+                .OrderBy(s => s.Name)
+                .ToList();
+            cmbScheduleSubject.DisplayMember = "Name";
+            cmbScheduleSubject.ValueMember = "Id";
+            cmbScheduleSubject.SelectedIndex = -1;
         }
 
         private void btnScheduleCrud_Click(object sender, EventArgs e)
@@ -169,6 +235,14 @@ namespace EduInst.PL.Schedule
                     MessageBox.Show($"Schedule exported successfully!\nSaved at: {filePath}", "Export Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            cmbScheduleSubject.SelectedIndex = -1;
+            cmbScheduleGroup.SelectedIndex = -1;
+            cmbScheduleTeacher.SelectedIndex = -1;
+            LoadSchedule();
         }
     }
 }

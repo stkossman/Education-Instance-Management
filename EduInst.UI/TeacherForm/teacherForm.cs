@@ -16,6 +16,9 @@ namespace EduInst.PL.TeacherForm
 {
     public partial class teacherForm : Form
     {
+        private readonly int _userId;
+        private readonly string _userRole;
+
         private GroupsControl groupsControl;
         private SubjectsControl subjectsControl;
         private StudentsControl studentsControl;
@@ -24,9 +27,11 @@ namespace EduInst.PL.TeacherForm
         private ScheduleControl scheduleControl;
         private ClassroomsControl classroomsControl;
 
-        public teacherForm()
+        public teacherForm(int userId, string userRole)
         {
             InitializeComponent();
+            _userId = userId;
+            _userRole = userRole;
         }
 
         private Image defaultDash;
@@ -58,6 +63,32 @@ namespace EduInst.PL.TeacherForm
             hoverLoadData = PL.Properties.Resources.loaddata_hover;
             hoverLogout = PL.Properties.Resources.logout_hover;
             hoverSchedule = PL.Properties.Resources.schedule_hover;
+
+            LoadUserData();
+        }
+
+        private void LoadUserData()
+        {
+            using (var _context = new EduInstContext(new DbContextOptionsBuilder<EduInstContext>()
+       .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EduInstDB;Trusted_Connection=True;TrustServerCertificate=True;")
+       .Options))
+            {
+                var user = _context.Users.FirstOrDefault(u => u.Id == _userId);
+                if (user != null)
+                {
+                    string fullName = user.Username;
+
+                    if (_userRole == "Teacher")
+                    {
+                        var teacher = _context.Teachers.FirstOrDefault(s => s.UserId == _userId);
+                        if (teacher != null)
+                        {
+                            fullName = $"{teacher.FirstName} {teacher.LastName}";
+                            lblUserTeacher.Text = fullName;
+                        }
+                    }
+                }
+            }
         }
 
         private void leftPanel_Paint(object sender, PaintEventArgs e)
@@ -210,7 +241,7 @@ namespace EduInst.PL.TeacherForm
             pnlDashboard.Visible = false;
 
             pnlSchedule.InitUI();
-            pnlSchedule.LoadSchedule(pnlSchedule.GetSelectedData());
+            pnlSchedule.LoadSchedule();
         }
 
         private void btnLoadData_Click(object sender, EventArgs e)
@@ -224,7 +255,7 @@ namespace EduInst.PL.TeacherForm
             pnlGroups.displayData();
             pnlStudents.displayData();
             pnlSchedule.InitUI();
-            pnlSchedule.LoadSchedule(pnlSchedule.GetSelectedData());
+            pnlSchedule.LoadSchedule();
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)

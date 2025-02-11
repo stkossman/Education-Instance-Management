@@ -43,6 +43,8 @@
             btnGroups = new Button();
             pnlSchedule = new Schedule.ScheduleControl();
             topPanel = new Panel();
+            label2 = new Label();
+            lblUserTeacher = new Label();
             leftPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             topPanel.SuspendLayout();
@@ -240,12 +242,34 @@
             // topPanel
             // 
             topPanel.BackColor = Color.White;
+            topPanel.Controls.Add(label2);
+            topPanel.Controls.Add(lblUserTeacher);
             topPanel.Controls.Add(lblUniversity);
             topPanel.Location = new Point(192, -1);
             topPanel.Name = "topPanel";
             topPanel.Size = new Size(844, 66);
             topPanel.TabIndex = 10;
             topPanel.Paint += topPanel_Paint;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("SF Pro Display", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label2.Location = new Point(9, 20);
+            label2.Name = "label2";
+            label2.Size = new Size(96, 29);
+            label2.TabIndex = 5;
+            label2.Text = "Logged:";
+            // 
+            // lblUserTeacher
+            // 
+            lblUserTeacher.AutoSize = true;
+            lblUserTeacher.Font = new Font("SF Pro Display", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUserTeacher.Location = new Point(97, 20);
+            lblUserTeacher.Name = "lblUserTeacher";
+            lblUserTeacher.Size = new Size(79, 29);
+            lblUserTeacher.TabIndex = 4;
+            lblUserTeacher.Text = "label2";
             // 
             // teacherForm
             // 
@@ -285,5 +309,7 @@
         private PictureBox pictureBox1;
         private Panel topPanel;
         private Label label1;
+        private Label label2;
+        private Label lblUserTeacher;
     }
 }

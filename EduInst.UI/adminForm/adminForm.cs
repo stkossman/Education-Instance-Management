@@ -263,7 +263,7 @@ namespace EduInst.UI
             pnlClassrooms.Visible = false;
 
             pnlSchedule.InitUI();
-            pnlSchedule.LoadSchedule(pnlSchedule.GetSelectedData());
+            pnlSchedule.LoadSchedule();
         }
 
         private void btnClassrooms_Click(object sender, EventArgs e)
@@ -292,7 +292,7 @@ namespace EduInst.UI
             pnlStudents.displayData();
             pnlEmployees.displayData();
             pnlSchedule.InitUI();
-            pnlSchedule.LoadSchedule(pnlSchedule.GetSelectedData());
+            pnlSchedule.LoadSchedule();
             pnlClassrooms.displayData();
         }
 

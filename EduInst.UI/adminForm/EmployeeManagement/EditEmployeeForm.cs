@@ -48,12 +48,33 @@ namespace EduInst.PL
                 return;
             }
 
+            string newFirstName = txtEditTeacherFirstName.Text.Trim();
+            string newLastName = txtEditTeacherLastName.Text.Trim();
+            string newPhone = txtEditTeacherPhone.Text.Trim();
+
+            bool isNameChanged = newFirstName != _selectedTeacher.FirstName || newLastName != _selectedTeacher.LastName;
+            bool isPhoneChanged = newPhone != _selectedTeacher.Phone;
+
             _selectedTeacher.FirstName = txtEditTeacherFirstName.Text.Trim();
             _selectedTeacher.LastName = txtEditTeacherLastName.Text.Trim();
             _selectedTeacher.Phone = txtEditTeacherPhone.Text.Trim();
             _selectedTeacher.Email = txtEditTeacherEmail.Text.Trim();
             _selectedTeacher.DateOfBirth = dtpEditTeacherBirth.Value;
-                
+
+            var user = _context.Users.FirstOrDefault(u => u.Id == _selectedTeacher.UserId);
+
+            if (user != null)
+            {
+                if (isNameChanged)
+                {
+                    user.Username = $"{_selectedTeacher.FirstName.ToLower()}.{_selectedTeacher.LastName.ToLower()}";
+                }
+                if (isPhoneChanged)
+                {
+                    user.Password = _selectedTeacher.Phone;
+                }
+            }
+
             _context.SaveChanges();
             _employeesControl.displayData();
 

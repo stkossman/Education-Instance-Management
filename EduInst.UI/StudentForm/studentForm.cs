@@ -16,6 +16,9 @@ namespace EduInst.PL.StudentForm
 {
     public partial class studentForm : Form
     {
+        private readonly int _userId;
+        private readonly string _userRole;
+
         private GroupsControl groupsControl;
         private SubjectsControl subjectsControl;
         private StudentsControl studentsControl;
@@ -24,9 +27,11 @@ namespace EduInst.PL.StudentForm
         private ScheduleControl scheduleControl;
         private ClassroomsControl classroomsControl;
 
-        public studentForm()
+        public studentForm(int userId, string userRole)
         {
             InitializeComponent();
+            _userId = userId;
+            _userRole = userRole;
         }
 
         private Image defaultDash;
@@ -50,6 +55,32 @@ namespace EduInst.PL.StudentForm
             hoverLoadData = PL.Properties.Resources.loaddata_hover;
             hoverLogout = PL.Properties.Resources.logout_hover;
             hoverSchedule = PL.Properties.Resources.schedule_hover;
+
+            LoadUserData();
+        }
+
+        private void LoadUserData()
+        {
+            using (var _context = new EduInstContext(new DbContextOptionsBuilder<EduInstContext>()
+       .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EduInstDB;Trusted_Connection=True;TrustServerCertificate=True;")
+       .Options))
+            {
+                var user = _context.Users.FirstOrDefault(u => u.Id == _userId);
+                if (user != null)
+                {
+                    string fullName = user.Username;
+
+                    if (_userRole == "Student")
+                    {
+                        var student = _context.Students.FirstOrDefault(s => s.UserId == _userId);
+                        if (student != null)
+                        {
+                            fullName = $"{student.FirstName} {student.LastName}";
+                            lblUser.Text = fullName;
+                        }
+                    }
+                }
+            }
         }
 
         private void topPanel_Paint(object sender, PaintEventArgs e)

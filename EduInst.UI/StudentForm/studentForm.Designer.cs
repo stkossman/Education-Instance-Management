@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             topPanel = new Panel();
+            label2 = new Label();
+            lblUser = new Label();
             lblUniversity = new Label();
             label1 = new Label();
             pictureBox1 = new PictureBox();
@@ -45,12 +47,34 @@
             // topPanel
             // 
             topPanel.BackColor = Color.White;
+            topPanel.Controls.Add(label2);
+            topPanel.Controls.Add(lblUser);
             topPanel.Controls.Add(lblUniversity);
             topPanel.Location = new Point(192, -1);
             topPanel.Name = "topPanel";
             topPanel.Size = new Size(844, 66);
             topPanel.TabIndex = 18;
             topPanel.Paint += topPanel_Paint;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("SF Pro Display", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label2.Location = new Point(9, 22);
+            label2.Name = "label2";
+            label2.Size = new Size(96, 29);
+            label2.TabIndex = 3;
+            label2.Text = "Logged:";
+            // 
+            // lblUser
+            // 
+            lblUser.AutoSize = true;
+            lblUser.Font = new Font("SF Pro Display", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUser.Location = new Point(97, 22);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(79, 29);
+            lblUser.TabIndex = 2;
+            lblUser.Text = "label2";
             // 
             // lblUniversity
             // 
@@ -187,5 +211,7 @@
         private Button btnSchedule;
         private Panel leftPanel;
         private CustomControls.ScheduleControlStudent pnlScheduleStudent;
+        private Label lblUser;
+        private Label label2;
     }
 }

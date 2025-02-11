@@ -58,14 +58,14 @@ namespace EduInst.PL
                     }
                     else if (user.Role == "Teacher")
                     {
-                        teacherForm TeacherForm = new teacherForm();
+                        teacherForm TeacherForm = new teacherForm(user.Id, user.Role);
                         TeacherForm.Show();
 
                         this.Hide();
                     }
                     else if (user.Role == "Student")
                     {
-                        studentForm StudentForm = new studentForm();
+                        studentForm StudentForm = new studentForm(user.Id, user.Role);
                         StudentForm.Show();
                         this.Hide();
                     }
