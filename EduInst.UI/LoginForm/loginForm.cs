@@ -4,6 +4,7 @@ using EduInst.DAL.Models;
 using EduInst.PL.LoginForm;
 using EduInst.PL.StudentForm;
 using EduInst.PL.TeacherForm;
+using EduInst.PL.adminForm;
 using EduInst.UI;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -51,7 +52,7 @@ namespace EduInst.PL
 
                     if (user.Role == "admin")
                     {
-                        adminForm AdminForm = new adminForm();
+                        UI.adminForm AdminForm = new UI.adminForm();
                         AdminForm.Show();
 
                         this.Hide();

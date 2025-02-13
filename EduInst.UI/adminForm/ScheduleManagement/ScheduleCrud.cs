@@ -1,6 +1,7 @@
 ﻿using EduInst.BL;
 using EduInst.DAL.Context;
 using EduInst.DAL.Models;
+using EduInst.PL.adminForm.ScheduleManagement;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ namespace EduInst.PL.Schedule
         private EduInst.DAL.Models.Schedule _currentSchedule;
         private EduInstContext _context;
 
-        public ScheduleCrud(EduInstContext context, EduInst.DAL.Models.Schedule schedule = null)
+        public ScheduleCrud(EduInstContext context, DAL.Models.Schedule schedule = null)
         {
             InitializeComponent();
             _context = context;
@@ -111,20 +112,16 @@ namespace EduInst.PL.Schedule
                 _context.Schedules.Update(_currentSchedule);
 
             _context.SaveChanges();
+            LoadScheduleData();
             DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void btnDelSchedule_Click(object sender, EventArgs e)
         {
-            if (_currentSchedule != null)
-            {
-                _context.Schedules.Remove(_currentSchedule);
-                _context.SaveChanges();
-            }
-
-            DialogResult = DialogResult.OK;
-            this.Close();
+            ScheduleCrud scheduleCrud = new ScheduleCrud(_context);
+            ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleCrud: scheduleCrud);
+            scheduleDelete.Show();
         }
 
         private void btnCancelSchedule_Click(object sender, EventArgs e)
